@@ -21,6 +21,10 @@ angular.module('app')
 
 })
 
+.controller('homeCtrl', ['$scope', function($scope){
+    
+}])
+
 .controller('loginCtrl', ['$scope', function($scope,$http){
     $scope.codeBtn = '获取验证码';
     $scope.number = 2;
@@ -29,6 +33,14 @@ angular.module('app')
 
     }
     $scope.submit = function(){
+
+
+    var query = new AV.Query('user');
+    query.equalTo('name','demo')     
+    query.find().then(function(res){
+        console.log(res)
+    })   
+
         console.log($scope.tel,$scope.password)
         if ($scope.tel && $scope.password && $scope.tel.length == '11' && $scope.password.length == '4') {            
             $.when(
