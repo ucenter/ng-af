@@ -35,11 +35,11 @@ angular.module('app')
     $scope.submit = function(){
 
 
-    var query = new AV.Query('user');
-    query.equalTo('name','demo')     
-    query.find().then(function(res){
-        console.log(res)
-    })   
+        var query = new AV.Query('user');
+        query.equalTo('name','demo')     
+        query.find().then(function(res){
+            console.log(res)
+        })   
 
         console.log($scope.tel,$scope.password)
         if ($scope.tel && $scope.password && $scope.tel.length == '11' && $scope.password.length == '4') {            
