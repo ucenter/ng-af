@@ -41,11 +41,14 @@
 #main.panel{padding: 0;}
 #main .slide{overflow-y: hidden;}
 #main .slide img{width: 100%;height: auto;display: block;}
-.col-2{padding: 6px 0;background: #eee;overflow-y: hidden;}
-.col-2 .item{width: 50%;float: left;text-align: center;}
-.col-2 .item .block{background: blue;padding: 10px;margin: 0 4px;border-radius: 5px;}
-.row{width: 100%;overflow-y: hidden;background: #fff;}
-.gridView{text-align: center;}
-.gridView .item-2{width: 50%;float: left;position: relative;}
-.gridView .item-2:after{content: '';height: 100%;position: absolute;width: 100%;}
-.gridView .item-3{width: 33.33%;float: left;}
+
+#main .col-2{padding: 6px 0;background: #eee;overflow-y: hidden;}
+#main .col-2 .item{width: 50%;float: left;text-align: center;}
+#main .col-2 .item .block{background: blue;padding: 10px;margin: 0 4px;border-radius: 5px;}
+#main .row{width: 100%;overflow-y: hidden;background: #fff;}
+#main .gridView{text-align: center;}
+#main .gridView .item-2{width: 50%;float: left;position: relative;border:1px solid #eee;}
+#main .gridView .item-2:after{content: '';height: 100%;position: absolute;width: 100%;}
+#main .gridView .item-3{width: 33.33%;float: left;border:1px solid #eee;border-left: none;border-top: none;}
+
+

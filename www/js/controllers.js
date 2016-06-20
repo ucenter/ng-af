@@ -22,7 +22,7 @@ angular.module('app')
 })
 
 .controller('homeCtrl', ['$scope', function($scope){
-    
+    $.afui.clearHistory();
 }])
 
 .controller('loginCtrl', ['$scope', function($scope,$http){
