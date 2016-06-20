@@ -1,0 +1,39 @@
+.view footer{
+    background: #eee;
+    border: none;
+    border-top: 1px solid #ccc;
+    box-shadow: none;
+}
+.view footer > a{
+	color: #666;
+}
+.view footer > a.pressed{
+	color: #0088d1;
+}	
+.view footer > a.pressed:not(.button){
+	background-color:inherit;
+}
+.afToastContainer.bc{text-align: center;}
+.button{
+	border-radius: 5px;
+}
+.text-center{
+	text-align: center;
+}
+.small{font-size: 0.9em;}
+#login{
+	padding: 0;
+}
+#login .grid{
+	padding: 10px;
+}
+
+#login div.input{position: relative;}
+#login div.input input{padding-left: 40px;}
+#login div.input input[type=password]{
+	padding-right: 110px;
+}
+#login div.input .getcode{position: absolute;top: 3px;right: 3px;margin: 0;}
+
+/*验证样式*/
+.ng-invalid,.ng-invalid-required .ng-valid-maxlength{outline-color: red;border-color: red}
