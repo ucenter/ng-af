@@ -4,7 +4,6 @@ angular.module('app')
 
     var todos=$scope.todos=[];
 
-
     $scope.addTodo=function(){
         if(!$scope.todoVal) return;
         todos.push({
@@ -68,5 +67,7 @@ angular.module('app')
 }])
 
 .controller('account', ['$scope','$cordovaDatePicker', function($scope,$cordovaDatePicker){
-    
+    $scope.loginOut = function(){
+        
+    }
 }])
