@@ -21,18 +21,16 @@ document.addEventListener("deviceready", function(){
 	document.addEventListener("backbutton", onBackKeyDown, false);  
 	function onBackKeyDown() {  
 		if ($.afui.activeDiv.id == 'main') {
-			navigator.notification.confirm({
-				'确定退出吗？',
-				confirmCallback,
-				'提示信息',
-				['确定','取消']
-			})
+			navigator.notification.confirm('确定退出吗？',confirmCallback,'提示信息',['确定','取消'])
+		}else{
+			navigator.app.backHistory()
 		}
 	}
 	function confirmCallback(res){
 		if (res == '1') {
 			exitApp()
 		}else{
+			navigator.app.clearHistory()
 			return false;
 		}
 	}  
