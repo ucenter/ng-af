@@ -21,11 +21,24 @@ angular.module('app')
 
 })
 
-.controller('homeCtrl', ['$scope', function($scope){
-    
+.controller('homeCtrl', ['$scope','$cordovaToast', function($scope,$cordovaToast){
+    $scope.slides = [
+        {'img': './img/slide-1.jpg'}
+    ]
+
+    document.addEventListener('deviceready',function(){
+        $cordovaToast.show('设备准备就绪', 'long', 'center')
+            .then(function(success) {
+              // success
+            }, function (error) {
+              // error
+        });    
+    },false)
+
+
 }])
 
-.controller('loginCtrl', ['$scope', function($scope,$http){
+.controller('loginCtrl', ['$scope','$http', function($scope,$http){
     $scope.codeBtn = '获取验证码';
     $scope.number = 2;
 
@@ -35,11 +48,11 @@ angular.module('app')
     $scope.submit = function(){
 
 
-    var query = new AV.Query('user');
-    query.equalTo('name','demo')     
-    query.find().then(function(res){
-        console.log(res)
-    })   
+        var query = new AV.Query('user');
+        query.equalTo('name','demo')     
+        query.find().then(function(res){
+            console.log(res)
+        })   
 
         console.log($scope.tel,$scope.password)
         if ($scope.tel && $scope.password && $scope.tel.length == '11' && $scope.password.length == '4') {            
@@ -52,4 +65,8 @@ angular.module('app')
             $.afui.toast({'message':'输入有误','position':'bc','type':'error'})
         }
     }
+}])
+
+.controller('account', ['$scope','$cordovaDatePicker', function($scope,$cordovaDatePicker){
+    
 }])
