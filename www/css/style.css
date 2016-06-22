@@ -65,6 +65,7 @@ a{text-decoration: none;color: #333;}
 #main.panel{padding: 0;}
 #main .slide{overflow-y: hidden;}
 #main .slide img{width: 100%;height: auto;display: block;}
+<<<<<<< HEAD
 .col-2{padding: 6px 0;background: #eee;overflow-y: hidden;}
 .col-2 .item{width: 50%;float: left;text-align: center;}
 .col-2 .item .block{
@@ -139,4 +140,3 @@ a{text-decoration: none;color: #333;}
 #account .userHead .header img{
 	width: 56px;height: 56px;border-radius: 50%;margin-top: 40px;clear: both;
 }
-
