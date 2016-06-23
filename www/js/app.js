@@ -12,6 +12,7 @@ angular.module('app',['ngCordova'])
 
 
 $.afui.ready(function(){
+
 	AV.init('DXEQiY2oEBX8mE8Vz12gINHj-gzGzoHsz','sW5BjA4qDVy89NVuXCjUz9Lo');
 
     angular.bootstrap(document, ['app']);
