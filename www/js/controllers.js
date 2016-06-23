@@ -1,4 +1,4 @@
-angular.module('app')
+angular.module('app',['ng-iscroll'])
 .controller('TodoCtrl',function TodoCtrl($scope) {
     'use strict';
 
@@ -18,6 +18,10 @@ angular.module('app')
         todos.splice(todos.indexOf(item),1);
         $scope.$apply();
     };
+
+})
+
+.controller('listCtrl',function($scope){
 
 })
 

@@ -1,6 +1,6 @@
-angular.module('app',[])
+angular.module('app',['infinite-scroll'])
 .config(function () {
-
+	angular.module('infinite-scroll').value('THROTTLE_MILLISECONDS', 250)
 })
 
 .factory('user', ['$http', function($http){
