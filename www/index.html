@@ -11,6 +11,7 @@
 
     <link rel="stylesheet" type="text/css" href="./lib/af.ui.base.css" />
     <link rel="stylesheet" type="text/css" href="./lib/icon.css" />
+    <link rel="stylesheet" href="./css/icomoon.css">
     <link rel="stylesheet" href="./css/style.css" />
 
     <!-- IF using Sass (run gulp sass first), then uncomment below and remove the CSS includes above
@@ -24,42 +25,40 @@
     <script src="./lib/angular.min.js"></script>    
     <script src='./lib/av.min.js'></script>
     <!-- cordova script (this will be a 404 during development) -->
+    <script src='./lib/ng-cordova.min.js'></script>
     <script src="cordova.js"></script>
-    <script src='./lib/ng-infinite-scroll.min.js'></script>
     <!-- your app's js -->
-    <script type="text/javascript" charset="utf-8" src="js/app.js"></script>
-    <script type="text/javascript" charset="utf-8" src="js/controllers.js"></script>
-    <script type="text/javascript" charset="utf-8" src="js/directives.js"></script>
+
+    <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=485a9e87c98054c55b50404385e10ed1"></script>   
 
   </head>
 <body id="todoaf">
     <div id="splashscreen" class='ui-loader heavy'>
-        App Framework
+        
         <br>
         <br>
         <span class='ui-icon ui-icon-loading spin'></span>
-        <h1>Starting app</h1>
+        <h1>启动中...</h1>
 
     </div>
     <div class="view" id="mainview">
-        <header>
-            <h1>Welcome</h1>
-        </header>
+        <header><h1></h1></header>
         <div class="pages">
             <div class="panel active" id="main" data-title="首页" data-selected="true"  ng-controller="homeCtrl" data-include="tpl/home.html">
             </div>
-            <div class="panel" id="message" data-title="消息" data-include='tpl/message.html'></div>
+            <div class="panel" id="message" data-title="信息查询" data-include='tpl/message.html'></div>
             <div class="panel" id='point' data-tile='积分' data-include='tpl/point.html'></div>
-            <div class="panel" id='account' data-title='我的' data-include='tpl/account.html'></div>
-            <div class="panel" id='listArticle' ng-controller='listCtrl'>
-                <div id="wrapper" ng-iscroll></div>
-            </div>            
+            <div class="panel" id='account' data-title='我的' data-include='tpl/account.html'></div>        
+
+            <div class="panel" id="test" data-title='测试'></div>
+
         </div>
         <footer>
             <a href="#main" class="icon home" data-transition="slide">首页</a>
-            <a href="#message" class="icon message" data-transition="slide">消息</a>
-            <a href="#point" class="icon star" data-transition='slide'>积分</a>
-            <a href="#account" class="icon user" data-transition='slide'>我的</a>
+            <a href="#message" class="icon magnifier" data-transition="slide">信息查询</a>
+            <a href="#test" class='icon png test' data-transition='fade'>测试业务</a>
+            <a href="#point" class="icon star" data-transition='slide'>业务处理</a>
+            <a href="#account" class="icon user" data-transition='slide'>个人中心</a>
         </footer>
     </div>
 
@@ -68,11 +67,26 @@
             <div class="panel" id='login' data-include='tpl/login.html'></div>
         </div>
     </div>
-    <div class="view" id="listView" style='z-index:10;'>
-        <div class="pages">
-
+    <div class="view" id="listView" style='z-index:10;' >
+        <header><h1></h1></header>
+        <div class="pages" ng-controller='listCtrl'>
+            <div class="panel" id='list' data-title='{{listName}}'>                
+                <ul class="list">
+                    <li ng-repeat='item in items'>
+                        <a ng-href="#detail/{{item.id}}">{{item.name}}</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="panel" id='detail' ng-controller='detailCtrl'>
+                <div class="grid">
+                    <h2>{{title}}</h2>
+                </div>
+            </div>
         </div>
     </div>
   </body>
 
+    <script type="text/javascript" charset="utf-8" src="js/app.js"></script>
+    <script type="text/javascript" charset="utf-8" src="js/controllers.js"></script>
+    <script type="text/javascript" charset="utf-8" src="js/directives.js"></script>
 </html>

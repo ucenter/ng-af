@@ -1,9 +1,11 @@
 <div class="grid">
+
 	<div class="slide">
-		<div class="item">
-			<img src="./img/slide-1.jpg" alt="">
+		<div class="item" ng-repeat='item in slides'>
+			<img ng-src="{{item.img}}" alt="">
 		</div>
 	</div>
+
 	<div class="col-2">
 		<div class="item">
 			<div class="block"><a href="#listArticle">出行提示</a></div>
@@ -13,15 +15,16 @@
 		</div>
 	</div>
 	<div class="row">
-		<p>交通通告：</p>
+		<p><i class="icon-volume-up"></i>交通通告：lat:{{lat}} &nbsp; long:{{long}}</p>
 	</div>
 	<div class="gridView">
-		<div class="item-2">事故处理</div>
-		<div class="item-2">违法举报</div>
+		<a href='#list' class="item-2"><i class="icon-hand-paper-o"></i><p>事故处理</p></a>
+		<a href='#list' class="item-2"><i class="icon-camera"></i><p>违法举报</p></a>
 	</div>
 	<div class="gridView">
-		<div class="item-3">信息查询</div>
-		<div class="item-3">业务处理</div>
-		<div class="item-3">区域互动</div>
+		<a href='#list' class="item-3"><i class="icon-search"></i><p>信息查询</p></a>
+		<a href='#' class="item-3"><i class="icon-envelope-o"></i><p>业务处理</p></a>
+		<a href='#' class="item-3"><i class="icon-share-square-o"></i><p>区域互动</p></a>
 	</div>
+
 </div>
