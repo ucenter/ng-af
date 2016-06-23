@@ -63,7 +63,15 @@
       "locator": "https://github.com/EddyVerbruggen/Toast-PhoneGap-Plugin.git",
       "id": "cordova-plugin-x-toast"
     },
-    "cordova-plugin-vibration"
+    "cordova-plugin-vibration",
+    "cordova-plugin-geolocation-baidu",
+    {
+      "variables": {
+        "API_KEY": "YVgPXDXmb1ANdov9xXxFWvg3"
+      },
+      "locator": "https://github.com/ETENG-OSP/cordova-plugin-baidu-geolocation.git",
+      "id": "cordova-plugin-baidu-geolocation"
+    }
   ],
   "cordovaPlatforms": []
 }

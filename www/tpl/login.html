@@ -3,7 +3,7 @@
 	<h1>登录</h1>
 </header>
 <div class="grid" ng-controller='loginCtrl'>
-	<form class='text-center' action="">
+	<form class='text-center' name='loginForm'>
 		<div class='input'>
 			<input ng-model='tel' type="tel" placeholder='11位手机号' required />
 		</div>
@@ -11,7 +11,7 @@
 			<input ng-model='password' placeholder='4位验证码' type="password" required />
 			<button class='button getcode disabled' ng-click='getCode()'>{{codeBtn}}</button>			
 		</div>
-		<a class='button block' href='#' ng-click='submit()'>验证并登录</a>
+		<a class='button block' href='#' ng-click='submit()' >验证并登录</a>
 		<p class="small">登录代表您已经完全同意和遵守</p>
 	</form>
 </div>

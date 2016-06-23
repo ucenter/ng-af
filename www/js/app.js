@@ -18,6 +18,8 @@ $.afui.ready(function(){
 
 
 document.addEventListener("deviceready", function(){
+	
+	
 	document.addEventListener("backbutton", onBackKeyDown, false);  
 	function onBackKeyDown() {  
 		if ($.afui.activeDiv.id == 'main') {
@@ -62,5 +64,19 @@ $(document).ready(function() {
 		//$.afui.setBackButtonVisibility(false)
 	})
 	
+	$('#test').bind('panelbeforeload',function(e){
+		$.ajax({
+			type: 'GET',
+			url:'http://123.57.38.48/cordovaTest.html?'+parseInt(Date.now()),
+			dataType:'json',
+			success:function(res){
+				$('#test').empty().html(res)
+			},
+			error:function(){
+				$('#test').html('获取远程页面失败')
+			}
+		})
+	})
 });
+
 
