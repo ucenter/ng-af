@@ -1,15 +1,8 @@
-angular.module('app',['ngCordova'])
+angular.module('app',['ngCordova','angular-carousel'])
 
 .config(function () {
 	
 })
-
-.factory('user', ['$http', function($http){
-	return function login(){
-		return $http.get()
-	}
-}])
-
 
 $.afui.ready(function(){
 
@@ -67,9 +60,8 @@ $(document).ready(function() {
 	
 	$('#test').bind('panelbeforeload',function(e){
 		$.ajax({
-			type: 'GET',
-			url:'http://123.57.38.48/cordovaTest.html?'+parseInt(Date.now()),
-			dataType:'json',
+			url:'http://demo.simovision.cn/ajax.html?'+parseInt(Date.now()),
+			//url:'../cordovaTest.html',
 			success:function(res){
 				$('#test').empty().html(res)
 			},

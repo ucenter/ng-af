@@ -1,10 +1,20 @@
+<div class="slide">
+	<ul rn-carousel rn-carousel-auto-slide rn-carousel-controls-allow-loop class="image">
+		<li ng-repeat="item in slides">
+			<div  class="layer">
+				<img ng-src="{{item.img}}" alt=""/>
+			</div>				
+		</li>
+		<div class='carouselIndex' rn-carousel-indicators ng-if="slides.length > 1" slides="slides" rn-carousel-index="carouselIndex"></div>
+	</ul>
+</div>
 <div class="grid">
-
+<!--
 	<div class="slide">
 		<div class="item" ng-repeat='item in slides'>
 			<img ng-src="{{item.img}}" alt="">
 		</div>
-	</div>
+	</div>-->
 
 	<div class="col-2">
 		<div class="item">

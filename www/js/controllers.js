@@ -21,25 +21,25 @@ angular.module('app')
 
 })
 
-
-.controller('listCtrl',function($scope,$location){
-    $scope.listName = '标题';
+.controller('listCtrl',function($scope){
+    console.log('listCtrl')
+    $scope.listName = '通用列表页标题';
     $scope.items = [
-        {'id':'1','name':'信息标题'},
-        {'id':'2','name':'信息标题'}
+        {'id':'1','name':'列表信息标题'},
+        {'id':'2','name':'列表信息标题'}
     ]
 })
 
-.controller('detailCtrl',function($scope,$location){
-    $scope.title = $location.url;
-    console.log($location)
+.controller('detailCtrl',function($scope){
+    console.log('detailCtrl')
 })
 
 .controller('homeCtrl', ['$scope','$cordovaToast','$cordovaGeolocation', function($scope,$cordovaToast,$cordovaGeolocation){
     $.afui.clearHistory();
 
     $scope.slides = [
-        {'img': './img/slide-1.jpg'}
+        {'img': './img/slide-1.jpg'},
+        {'img': './img/slide-2.jpg'}
     ]
 
     document.addEventListener('deviceready',function(){
@@ -88,11 +88,8 @@ angular.module('app')
     $scope.getCode = function(){
 
     }
-    $scope.submit = function(){
-
- 
+    $scope.submit = function(){ 
         console.log($scope.tel,$scope.password)
-
         if ($scope.tel && $scope.password && $scope.tel.length == '11' && $scope.password.length == '4') {            
             $.when(
                 $.afui.toast({'message':'登录成功','position':'bc'})

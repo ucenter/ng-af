@@ -1,0 +1,449 @@
+<div class="grid">
+    <div id="status">
+        <p></p>
+        <img src="" id="Image" style="width:100%;height:auto;">
+    </div>
+    <div class="list">  
+        <div class="grid" style="padding:0 10px;">
+            当前页面地址:http://www.qiashida.cn/qsd/app/af3-ajax.html
+            <a class="button block" id="refreshBaidu">刷新页面</a>
+            <a class="button block" id="printer">打印机</a>
+        </div>      
+        <ul>
+            <li>
+                <div class="button-grouped">
+                    <a onclick="getCam()" class="button">相机</a>
+                    <a onclick="getCode()" class="button">二维码</a>                    
+                    <a onclick="checkConnection()" class="button">网络</a>
+                    <a id="NativeAudio" class="button">NativeAudio</a>
+                </div>
+            </li>
+            <li>
+                <textarea name="tts_text" id="tts_text" rows="2"></textarea>
+                <a class="button block" id="base64Audio">语音合成本地存储</a>                
+                <div class="button-grouped">
+                    <a class="button" id="lowaudioPlay">lowaudio插件</a>
+                    <a class="button" id="streamingMedia">全屏播放</a>
+                    <a class="button" id="H5Audio">远程音频</a>                    
+                </div>
+            </li>
+            <li>
+                <div class="button-grouped">
+                    <a onclick="deviceStatus.getModel()" class="button">型号</a>
+                    <a id="deviceStatus.getOSver()" class="button">设备</a>
+                    <a id="devicephonegap" class="button">phonegap</a>
+                    <a id="deviceversion" class="button">版本</a>
+                    <a id="deviceplatform" class="button">平台</a>
+                </div>
+            </li>
+            <li>
+                <div id="geolocation"></div>                
+                <div id="bdLocation">百度定位信息</div>                
+            </li> 
+        </ul>
+
+       <div id="allmap" style="width:90%;margin:0 auto;height:300px;"></div>
+    </div>      
+</div>
+  
+
+<script type="text/javascript">
+
+
+    //var map = new BMap.Map("allmap");    // 创建Map实例
+    //map.centerAndZoom(new BMap.Point(116.404, 39.915), 14);  // 初始化地图,设置中心点坐标和地图级别
+    
+    // map.addControl(new BMap.MapTypeControl());   //添加地图类型控件
+    // map.setCurrentCity("北京"); 
+
+
+        document.addEventListener("deviceready", DeviceReady, false);
+
+        //var status = document.getElementById('status'); 
+
+        function DeviceReady(){
+
+            function loadBaidu(time){
+                $.afui.showMask();
+                var time = time;
+                $.ajax({
+                    url: remoteUrl+'af3-ajax.html?'+time
+                }).done(function(data){
+                    $('#baidu').html(data);
+                })    
+                window.setTimeout(function(){
+                    $.afui.hideMask();
+                },500)                
+            }
+            //强制刷新当前页
+            $('#refreshBaidu').bind('click',function(){
+                setTimeout(function(){
+                    loadBaidu(Date.parse(new Date()));
+                },100);
+                
+            })        
+
+            $.afui.toast({message:"设备准备就绪",position:"bc",delay:2000,autoClose:true,type:"success"});
+
+            //无法识别网络音频文件
+            // function NativeAudio(){
+            //     if( window.plugins && window.plugins.NativeAudio ) {
+            //         // Preload audio resources
+            //         window.plugins.NativeAudio.preloadComplex( 'music', 'assets/audio/click.mp3', 1, 1, 0, 
+            //             function(msg){
+            //                 $.afui.toast({message:msg,position:"bc",delay:2000,autoClose:true,type:"error"});
+            //             }, function(msg){
+            //                 //console.log( 'error: ' + msg );
+            //                 $.afui.toast({message:msg,position:"bc",delay:2000,autoClose:true,type:"error"});
+            //         });
+            //         // Play
+            //         window.plugins.NativeAudio.play( 'music' );
+            //         window.setTimeout( function(){
+            //             window.plugins.NativeAudio.stop( 'music' );
+            //             window.plugins.NativeAudio.unload( 'music' );
+
+            //         }, 2000);
+            //     }               
+            // };
+            function NativeAudio(file){
+                this.file = file;
+                if( window.plugins && window.plugins.NativeAudio ) {
+                    // Preload audio resources
+                    window.plugins.NativeAudio.preloadComplex( 'music', file, 1, 1, 0, 
+                        function(msg){
+                            $.afui.toast({message:msg,position:"bc",delay:2000,autoClose:true,type:"error"});
+                            window.plugins.NativeAudio.play( 'music' );
+                        }, function(msg){
+                            //console.log( 'error: ' + msg );
+                            $.afui.toast({message:msg,position:"bc",delay:2000,autoClose:true,type:"error"});
+                    });
+                    // Play
+                    
+                    window.setTimeout( function(){
+                        window.plugins.NativeAudio.stop( 'music' );
+                        window.plugins.NativeAudio.unload( 'music' );
+                    }, 2000);
+                }               
+            };
+
+
+            $('#NativeAudio').bind('click',function(){
+                NativeAudio('assets/audio/click.mp3');
+            }); 
+
+
+            function lowaudioPlay(){
+                if( window.plugins && window.plugins.LowLatencyAudio ) {
+                    $.afui.toast({message:"LowLatencyAudio插件就绪",position:"bc",delay:2000,autoClose:true,type:"success"});
+                    // preload audio resource
+                    // lla.preloadAudio( 'music', media['music'], 1, 1, function(msg){
+                    // }, function(msg){
+                    //     console.log( 'error: ' + msg );
+                    // });                    
+                    var media = {
+                    'music': 'assets/audio/click.mp3',
+                    'click': 'assets/audio/click.mp3'
+                    };
+                    var lla = window.plugins.LowLatencyAudio;                    
+                    lla.preloadFX( 'click', media['click'], function(msg){
+
+                        }, function(msg){
+                        alert( 'error: ' + msg );
+                    });                    
+                    // now start playing
+                    lla.play( 'click' );
+                    //lla.loop( 'music' );
+
+                    // stop after 1 min    
+                    window.setTimeout( function(){
+                        //lla.stop( 'click' );
+                        //lla.stop( 'music' );
+
+                        //lla.unload( 'music' );
+                        lla.unload( 'click' );
+                    }, 2000);                    
+                }
+            }
+            $('#lowaudioPlay').bind('click',function(){
+                lowaudioPlay();
+            });
+
+
+            //音频视频播放器，带全屏播放界面
+            function streamingMedia(){
+                var audioUrl = 'http://www.qiashida.cn/qsd/app/click.mp3';
+                // Play an audio file (not recommended, since the screen will be plain black)
+                //window.plugins.streamingMedia.playAudio(audioUrl);
+                // Play an audio file with options (all options optional)
+                var options = {
+                    //bgColor: "#FFFFFF",
+                    //bgImage: "<SWEET_BACKGROUND_IMAGE>",
+                    //bgImageScale: "fit",
+                    successCallback: function() {
+                        alert("Player closed without error.");
+                    },
+                    errorCallback: function(errMsg) {
+                        alert("Error! " + errMsg);
+                    }
+                };
+                window.plugins.streamingMedia.playAudio(audioUrl, options);               
+            }
+            $('#streamingMedia').bind('click',function(){
+                streamingMedia();
+            });
+
+            // function XDKplayer(){
+            //     intel.xdk.player.loadSound("http://www.qiashida.cn/qsd/app/click.mp3");
+            //     function loadSoundError(){
+            //         alert("Sound file could not be loaded");
+            //     }
+            //     document.addEventListener("intel.xdk.player.sound.error",loadSoundError,false);
+            //     intel.xdk.player.playSound('http://www.qiashida.cn/qsd/app/click.mp3');
+            // }
+            // $('#XDKplayer').bind('click',function(){
+            //     if (intel.xdk.player) {
+            //         $.afui.toast({message:"XDKplayer",position:"bc",delay:2000,autoClose:true,type:"success"});
+            //         intel.xdk.player.loadSound("http://www.qiashida.cn/qsd/app/click.mp3");
+            //         function loadSoundError(){
+            //             alert("Sound file could not be loaded");
+            //         }
+            //         document.addEventListener("intel.xdk.player.sound.error",loadSoundError,false);
+            //         intel.xdk.player.playSound('http://www.qiashida.cn/qsd/app/click.mp3');                    
+            //     };
+
+            // });
+
+            function H5Audio(url){
+                // Play the audio file at url
+                var my_media = new Media(url,
+                    // success callback
+                    function () { 
+                        //alert("playAudio():Audio Success"); 
+                    },
+                    // error callback
+                    function (err) { alert("playAudio():Audio Error: " + err); }
+                );
+                // Play audio
+                my_media.play();
+                // Pause after 10 seconds
+                setTimeout(function () {
+                    media.stop();
+                }, 3000);
+            }
+
+            $('#H5Audio').bind('click',function(){
+                H5Audio('http://www.qiashida.cn/qsd/app/click.mp3');
+            });
+
+
+
+            $('#base64Audio').bind('click',function(){
+                var txt = $('#tts_text').val();
+                $.ajax({
+                    url: 'http://apis.baidu.com/apistore/baidutts/tts',
+                    data:'text='+txt+'&ctp=1&per=0',
+                    type:'get',
+                    headers:{
+                        'apikey': '502ba87e0b35e4b4d86fc449e837de07'
+                    },
+                    success:function(res){
+                        
+                        var sourceAudio = res.retData;
+
+                        $.afui.toast({message:"文件保存中",position:"bc",delay:2000,autoClose:true,type:"success"});
+                        //Decode Audio MP3 from Base64 and save file on storage.
+                        //var conf = { "b64string": sourceAudio, "filename": "voice.mp3", "folder": "/pathToDirectory/", "overwrite": true };
+                        //存储转码配置信息
+                        var conf = { "b64string": sourceAudio, "filename": "voice.mp3", "folder": "/storage/emulated/0/Android/data/cn.qiashida.af3demo/", "overwrite": true };
+                        //存储文件，回调播放音频
+                        Base64ToAudio.saveAudio(conf,
+                            function(success){
+                                //alert(success); //Return OK when the file is generated.
+                                //alert(cordova.file.externalApplicationStorageDirectory);
+                                H5Audio(cordova.file.externalApplicationStorageDirectory+'voice.mp3');
+                                
+                            },
+                            function(error){
+                                alert(error);
+                            }
+                        );
+
+                    }
+                });
+
+            });
+
+            $('#printer').bind('click',function(){
+                alert(bluetoothSerial.connect());
+            });
+
+
+
+
+            $(function(){
+                $('#devicephonegap').bind('click',function(){
+                    devicephonegap();
+                });
+                $('#deviceversion').bind('click',function(){
+                    deviceversion();
+                });   
+                $('#deviceplatform').bind('click',function(){
+                    deviceplatform();
+                });  
+                $('#doVibrate').bind('click',function(){
+                    doVibrate();
+                });                                                
+            })
+
+            function doVibrate(){
+                navigator.vibrate(2000);
+            }
+
+            var map = new BMap.Map("allmap");    // 创建Map实例
+            if (window.locationService) {
+                
+                var noop = function(){}
+                window.counter=1;
+                window.clearInterval(window.timer);
+                window.timer = null;
+                //window.timer = window.setInterval(doit,3000);
+
+                window.timer = window.setInterval(function(){
+
+                    window.locationService.getCurrentPosition(function(pos){
+
+                        //alert(JSON.stringify(pos.coords));
+                        var longitude = JSON.stringify(pos.coords.longitude);                    
+                        var latitude =  JSON.stringify(pos.coords.latitude); 
+                        document.getElementById('bdLocation').innerHTML = '<p>'+JSON.stringify(pos)+'</p><p>longitude:'
+                            +longitude+'latitude:'+latitude+'</p>';
+                        map.centerAndZoom(new BMap.Point(longitude, latitude), 18);  // 初始化地图,设置中心点坐标和地图级别
+                        map.clearOverlays();
+                        var marker1 = new BMap.Marker(new BMap.Point(longitude, latitude));  //创建标注
+                        map.addOverlay(marker1);  
+                        window.locationService.stop(noop,noop)
+                    },function(e){
+                        //alert(JSON.stringify(e))
+                        window.locationService.stop(noop,noop)
+                    });
+
+                },3000);
+                
+
+                
+            }
+
+        }
+
+
+
+        function devicename(){
+            var d_name = device.name;
+            alert(d_name);
+        }
+
+        function devicephonegap(){
+            var d_phonegap = device.cordova;
+            alert(d_phonegap);
+        }
+        function deviceversion(){
+            var d_version = device.version;
+            alert(d_version);
+        }            
+        
+        function deviceplatform(){
+            var d_platform = device.platform;
+            alert(d_platform);
+        }
+
+
+        function checkConnection() {
+            var networkState = navigator.network.connection.type;
+            var states = {};
+            states[Connection.UNKNOWN]  = 'Unknown connection';
+            states[Connection.ETHERNET] = 'Ethernet connection';
+            states[Connection.WIFI]     = 'WiFi connection';
+            states[Connection.CELL_2G]  = 'Cell 2G connection';
+            states[Connection.CELL_3G]  = 'Cell 3G connection';
+            states[Connection.CELL_4G]  = 'Cell 4G connection';
+            states[Connection.NONE]     = 'No network connection';
+            alert('Connection type: ' + states[networkState]);            
+        }         
+        
+        function getCam(){
+           navigator.camera.getPicture(onSuccess, onFail, { quality: 50,
+                destinationType: Camera.DestinationType.DATA_URL
+            });
+
+            function onSuccess(imageData) {
+                var image = document.getElementById('Image');
+                image.src = "data:image/jpeg;base64," + imageData;
+            }
+
+            function onFail(message) {
+                alert('Failed because: ' + message);
+            }
+        }
+        
+        
+        //二维码扫描
+        function getCode(){        
+           cordova.plugins.barcodeScanner.scan(
+              function (result) {
+                  alert("We got a barcode\n" +
+                        "Result: " + result.text + "\n" +
+                        "Format: " + result.format + "\n" +
+                        "Cancelled: " + result.cancelled);
+              }, 
+              function (error) {
+                  alert("Scanning failed: " + error);
+              }
+           );
+        }
+        
+        
+        function encode(){
+            cordova.plugins.barcodeScanner.encode(cordova.plugins.barcodeScanner.Encode.TEXT_TYPE, "http://www.nytimes.com", function(success) {
+                alert("encode success: " + success);
+              }, function(fail) {
+                alert("encoding failed: " + fail);
+              }
+            );
+        
+        }
+
+        
+        // device APIs are available
+        function onDeviceReady() {
+            
+            //document.addEventListener("backbutton",eventBackButton, false);  
+
+
+            
+            // 获取位置信息成功时调用的回调函数
+            // 该方法接受一个“Position”对象，包含当前GPS坐标信息
+            function onSuccess(position) {
+                var el = document.getElementById('geolocation');                
+                el.innerHTML = 'Latitude: '  + position.coords.latitude      + '<br>' +
+                               'Longitude: ' + position.coords.longitude     + '<br>';
+            }
+
+            // onError回调函数接收一个PositionError对象
+            function onError(error) {
+                alert('code: '    + error.code    + '\n' +
+                    'message: ' + error.message + '\n');
+            }
+
+            // Options: 每隔3秒钟检索一次位置信息
+            var watchID = navigator.geolocation.watchPosition(onSuccess, onError, { frequency: 3000 });    
+            
+            var element = document.getElementById('deviceProperties');
+            element.innerHTML = 'Device Model: '    + device.model    + '<br />' +
+                                'Device Cordova: '  + device.cordova  + '<br />' +
+                                'Device Platform: ' + device.platform + '<br />' +
+                                'Device UUID: '     + device.uuid     + '<br />' +
+                                'Device Version: '  + device.version  + '<br />';            
+        }
+
+
+</script>
