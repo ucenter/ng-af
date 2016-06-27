@@ -1,13 +1,13 @@
 <div class="button-grouped flex tabbed">
-	<a href='#' ng-model='tab1' ng-click='toggle()' class="button" ng-class='{pressed: tab1}'>驾驶员信息查询</a>
-	<a href='#' ng-model='tab2' ng-click='toggle()' class="button" ng-class='{pressed: tab2}'>车辆信息查询</a>
+	<a href='#' ng-click='toggle($event,tab1)' class="button" ng-class='{act: tab1}'>驾驶员信息查询</a>
+	<a href='#' ng-click='toggle($event,tab2)' class="button" ng-class='{act: tab2}'>车辆信息查询</a>
 </div>
 <div class="grid" ng-show='tab1'>
 	<form>
 		<div class="input-group">
 			<input type="text" placeholder='驾驶员号码'>
 			<input type="text" placeholder='驾驶证档案编号'>
-			<input type="submit" class='button' value='查询'>			
+			<button type="submit" class='button block'>查询</button>	
 		</div>
 	</form>
 </div>

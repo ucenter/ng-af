@@ -124,7 +124,11 @@ angular.module('app')
 .controller('messageCtrl', ['$scope', function($scope){
     $scope.tab1 = true;
     $scope.tab2 = false;
-    $scope.toggle = function(){
+    $scope.toggle = function(event,id){
+        if (id === true) {
+            return false;
+        }
+        console.log(event,id)
         if ($scope.tab1) {
             $scope.tab1 = false;
             $scope.tab2 = true;

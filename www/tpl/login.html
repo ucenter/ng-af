@@ -8,6 +8,7 @@
 			<input ng-model='tel' name='tel' type="tel" placeholder='11位手机号' 
 				ng-minlength='11' 
 				ng-maxlength='11' required />
+			<i class='png phone'></i>
 		</div>
 		<div class='input'>
 			<input 
@@ -15,6 +16,7 @@
 				placeholder='4位验证码' 
 				type="text" name='code'
 				required />
+			<i class="png key"></i>
 			<button class='button getcode' ng-click='getCode()' ng-disabled='loginForm.tel.$invalid'>{{codeBtn}}</button>			
 		</div>
 		<button class='button block' type='submit' ng-disabled='loginForm.$invalid'>验证并登录</button>

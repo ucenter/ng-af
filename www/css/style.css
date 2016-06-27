@@ -18,11 +18,22 @@
 .view footer > a.icon.png:before{
   content: ' ';width: 100%;height: 24px;background-size: auto;
 }
+.png{width:24px;height:24px;}
+.png:before{
+  content: ' ';width: 100%;height: 24px;background-size: auto;display:block;
+  background-size: auto;
+}
 .png.test:before{
     background: url(../img/PNG/android.png) no-repeat center;
 }
 .png.test:before{
     background: url(../img/PNG/android.png) no-repeat center;
+}
+.png.phone:before{
+  background: url(../img/PNG/phone.png) no-repeat center;
+}
+.png.key:before{
+  background: url(../img/PNG/key.png) no-repeat center;
 }
 button.button.block{width: 100%;}
 input[type=submit][disabled],
@@ -34,8 +45,26 @@ input[type=submit][disabled],
     border: 1px solid #eee;
 }
 input[type=submit].button,
-button.button{
-  border-radius: 5px;background-color: #0088d1;color: #fff;border-color: #0088d1;
+.button{
+  border-radius: 5px;border-color: #0088d1;color:#0088d1;background-color: #fff;
+}
+.button.act{
+  background-color: #0088d1;color: #fff;
+}
+.button-grouped *{
+    border-radius: 0;
+    border-left: 0px solid transparent;
+    border-right: 1px solid #0088d1;
+    border-bottom: 1px solid #0088d1;
+    border-top: 1px solid #0088d1;
+}
+.button-grouped > .button:first-child{
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+}
+.button-grouped > .button:last-child{
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
 }
 
 /*#mainview.view header .backButton{display: none;}*/
@@ -82,7 +111,7 @@ a{text-decoration: none;color: #333;}
 	padding-right: 110px;
 }
 #login div.input .getcode{position: absolute;top: 3px;right: 3px;margin: 0;}
-
+#login div.input .png{position:absolute;left:8px;top:8px;}
 
 /*验证样式*/
 .ng-invalid,.ng-invalid-required .ng-invalid-maxlength,.ng-invalid-minlength{outline-color: red;/*border-color: red*/}
