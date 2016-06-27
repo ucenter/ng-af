@@ -7,10 +7,24 @@ angular.module('app',['ngCordova','angular-carousel'])
 $.afui.ready(function(){
 
 	AV.init('DXEQiY2oEBX8mE8Vz12gINHj-gzGzoHsz','sW5BjA4qDVy89NVuXCjUz9Lo');
-
     angular.bootstrap(document, ['app']);
 });
 
+(function(window){
+
+	var initUser = {};
+	initUser.isLogin = false;
+	initUser.setLogin = function(b){
+		if (b == true || b == false) {
+			initUser.isLogin = b;			
+		}else{
+			console.error('参数为boolean')
+		}
+	}
+
+	window.initUser = initUser;
+
+})(window)
 
 document.addEventListener("deviceready", function(){	
 	

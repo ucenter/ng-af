@@ -3,15 +3,22 @@
 	<h1>登录</h1>
 </header>
 <div class="grid" ng-controller='loginCtrl'>
-	<form class='text-center' name='loginForm'>
+	<form class='text-center' name='loginForm' ng-submit='submit()'>
 		<div class='input'>
-			<input ng-model='tel' type="tel" placeholder='11位手机号' required />
+			<input ng-model='tel' name='tel' type="tel" placeholder='11位手机号' 
+				ng-minlength='11' 
+				ng-maxlength='11' required />
 		</div>
-		<div class='input password'>
-			<input ng-model='password' placeholder='4位验证码' type="password" required />
-			<button class='button getcode disabled' ng-click='getCode()'>{{codeBtn}}</button>			
+		<div class='input'>
+			<input 
+				ng-model='code' ng-minlength='4'
+				placeholder='4位验证码' 
+				type="text" name='code'
+				required />
+			<button class='button getcode' ng-click='getCode()' ng-disabled='loginForm.tel.$invalid'>{{codeBtn}}</button>			
 		</div>
-		<a class='button block' href='#' ng-click='submit()' >验证并登录</a>
+		<button class='button block' type='submit' ng-disabled='loginForm.$invalid'>验证并登录</button>
+		<!-- <input type="submit" value='验证并登录' disabled/> -->
 		<p class="small">登录代表您已经完全同意和遵守</p>
 	</form>
 </div>

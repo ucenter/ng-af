@@ -24,6 +24,19 @@
 .png.test:before{
     background: url(../img/PNG/android.png) no-repeat center;
 }
+button.button.block{width: 100%;}
+input[type=submit][disabled],
+.button[disabled]{
+    background-color: #eee;
+    color: #ccc;
+    cursor: not-allowed;
+    z-index: 2;
+    border: 1px solid #eee;
+}
+input[type=submit].button,
+button.button{
+  border-radius: 5px;background-color: #0088d1;color: #fff;border-color: #0088d1;
+}
 
 /*#mainview.view header .backButton{display: none;}*/
 
@@ -70,8 +83,9 @@ a{text-decoration: none;color: #333;}
 }
 #login div.input .getcode{position: absolute;top: 3px;right: 3px;margin: 0;}
 
+
 /*验证样式*/
-.ng-invalid,.ng-invalid-required .ng-valid-maxlength{outline-color: red;border-color: red}
+.ng-invalid,.ng-invalid-required .ng-invalid-maxlength,.ng-invalid-minlength{outline-color: red;/*border-color: red*/}
 
 #main.panel{padding: 0;}
 #main .slide{position:relative;}

@@ -81,24 +81,36 @@ angular.module('app')
 
 }])
 
-.controller('loginCtrl', ['$scope','$http', function($scope,$http){
+.controller('loginCtrl', ['$scope','$http','$timeout', function($scope,$http,$timeout){
+    console.log(initUser.isLogin)
+
     $scope.codeBtn = '获取验证码';
     $scope.number = 2;
+    $scope.loginForm = {    }
 
     $scope.getCode = function(){
-
+        $.afui.toast({'message':JSON.stringify($scope.tel),'position':'bc'})
+        $timeout(function(){
+            $.afui.toast({'message':'验证码：5423','position':'bc'})
+        },1000)
     }
+
     $scope.submit = function(){ 
-        console.log($scope.tel,$scope.password)
-        if ($scope.tel && $scope.password && $scope.tel.length == '11' && $scope.password.length == '4') {            
+        console.log($scope.tel,$scope.code)
+        if ($scope.tel && $scope.code && $scope.tel.length == '11' && $scope.code.length == '4') {            
             $.when(
                 $.afui.toast({'message':'登录成功','position':'bc'})
             ).then(function(res){
-                window.history.back();
-                $.afui.clearHistory();
+                //window.history.back();
+                initUser.setLogin(true)
+                $timeout(function(){
+                    $.afui.loadContent('#account',false,false,'fade');
+                    $.afui.clearHistory();
+                },1000)
             })
         }else{
             $.afui.toast({'message':'输入有误','position':'bc','type':'error'})
+            return false;
         }
     }
 }])
@@ -106,5 +118,19 @@ angular.module('app')
 .controller('account', ['$scope','$cordovaDatePicker', function($scope,$cordovaDatePicker){
     $scope.loginOut = function(){
         
+    }
+}])
+
+.controller('messageCtrl', ['$scope', function($scope){
+    $scope.tab1 = true;
+    $scope.tab2 = false;
+    $scope.toggle = function(){
+        if ($scope.tab1) {
+            $scope.tab1 = false;
+            $scope.tab2 = true;
+        }else{
+            $scope.tab1 = true;
+            $scope.tab2 = false;
+        }
     }
 }])
