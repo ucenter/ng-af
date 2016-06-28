@@ -34,7 +34,17 @@ angular.module('app')
     console.log('detailCtrl')
 })
 
-.controller('homeCtrl', ['$scope','$cordovaToast','$cordovaGeolocation', function($scope,$cordovaToast,$cordovaGeolocation){
+.controller('homeCtrl', ['$scope','$cordovaToast','$cordovaGeolocation', 'userInfo',function($scope,$cordovaToast,$cordovaGeolocation,userInfo){
+    
+    var promise = userInfo.query(); // 同步调用，获得承诺接口  
+    promise.then(function(data) {  // 调用承诺API获取数据 .resolve  
+        //$scope.user = data;  
+        console.log(data)
+    }, function(data) {  // 处理错误 .reject  
+        console.log(data)
+        //$scope.user = {error: '用户不存在！'};  
+    });  
+
     $.afui.clearHistory();
 
     $scope.slides = [
@@ -44,7 +54,7 @@ angular.module('app')
 
     document.addEventListener('deviceready',function(){
         $cordovaToast.show('设备准备就绪', 'long', 'center')
-            .then(function(success) {
+        .then(function(success) {
               // success
             }, function (error) {
               // error
