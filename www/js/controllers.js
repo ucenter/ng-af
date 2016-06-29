@@ -34,7 +34,7 @@ angular.module('app')
     console.log('detailCtrl')
 })
 
-.controller('homeCtrl', ['$scope','$cordovaToast','$cordovaGeolocation', 'userInfo',function($scope,$cordovaToast,$cordovaGeolocation,userInfo){
+.controller('homeCtrl', ['$scope','$cordovaToast','$cordovaGeolocation','userInfo', function($scope,$cordovaToast,$cordovaGeolocation,userInfo){
     
     var promise = userInfo.query(); // 同步调用，获得承诺接口  
     promise.then(function(data) {  // 调用承诺API获取数据 .resolve  

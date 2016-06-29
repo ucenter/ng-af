@@ -1,14 +1,14 @@
 angular.module('app',['ngCordova','angular-carousel'])
 
-.config(function ($cordovaInAppBrowserProvider) {
+.config(function () {
 
-	  document.addEventListener(function () {
-	    $cordovaInAppBrowserProvider.setDefaultOptions({
-	    	location: 'no',
-	    	clearcache: 'no',
-	    	toolbar: 'no'
-	  	})
-	  }, false);	
+	  // document.addEventListener(function () {
+	  //   $cordovaInAppBrowserProvider.setDefaultOptions({
+	  //   	location: 'no',
+	  //   	clearcache: 'no',
+	  //   	toolbar: 'no'
+	  // 	})
+	  // }, false);	
 })
 
 $.afui.ready(function(){
