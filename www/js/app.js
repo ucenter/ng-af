@@ -1,4 +1,4 @@
-angular.module('app',['ngCordova','angular-carousel'])
+angular.module('app',['ngCordova','angular-carousel','widget.scrollbar'])
 
 .config(function () {
 
@@ -91,6 +91,7 @@ $(document).ready(function() {
 			}
 		})
 	})
+
 });
 
 
