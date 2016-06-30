@@ -11,6 +11,18 @@ angular.module('app',['ngCordova','angular-carousel','widget.scrollbar'])
 	  // }, false);	
 })
 
+.run(function($rootScope,$cordovaGeolocation){
+	$rootScope.init = 'zhang'
+    document.addEventListener('deviceready',function(){
+        $cordovaToast.show('设备准备就绪', 'long', 'center')
+        .then(function(success) {
+              // success
+         }, function (error) {
+              // error
+        });    
+    },false)	
+})
+
 $.afui.ready(function(){
 
 	AV.init('DXEQiY2oEBX8mE8Vz12gINHj-gzGzoHsz','sW5BjA4qDVy89NVuXCjUz9Lo');

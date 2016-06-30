@@ -34,7 +34,7 @@ angular.module('app')
     console.log('detailCtrl')
 })
 
-.controller('homeCtrl', ['$scope','$cordovaToast','$cordovaGeolocation','userInfo', function($scope,$cordovaToast,$cordovaGeolocation,userInfo){
+.controller('homeCtrl', ['$scope','$rootScope','$cordovaToast','$cordovaGeolocation','userInfo', function($scope,$rootScope,$cordovaToast,$cordovaGeolocation,userInfo){
     
     var promise = userInfo.query(); // 同步调用，获得承诺接口  
     promise.then(function(data) {  // 调用承诺API获取数据 .resolve  
@@ -51,15 +51,6 @@ angular.module('app')
         {'img': './img/slide-1.jpg'},
         {'img': './img/slide-2.jpg'}
     ]
-
-    document.addEventListener('deviceready',function(){
-        $cordovaToast.show('设备准备就绪', 'long', 'center')
-        .then(function(success) {
-              // success
-            }, function (error) {
-              // error
-        });    
-    },false)
 
     var posOptions = {timeout: 10000, enableHighAccuracy: true};
     $cordovaGeolocation.getCurrentPosition(posOptions).then(function (position) {
